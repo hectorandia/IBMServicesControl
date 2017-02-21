@@ -126,6 +126,7 @@
             // 
             // startBtn
             // 
+            this.startBtn.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.startBtn.Location = new System.Drawing.Point(53, 28);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(75, 25);
@@ -276,7 +277,7 @@
             this.searchBtn.Location = new System.Drawing.Point(464, 114);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(85, 25);
-            this.searchBtn.TabIndex = 11;
+            this.searchBtn.TabIndex = 0;
             this.searchBtn.Text = "Search ";
             this.searchBtn.UseSelectable = true;
             this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
@@ -336,7 +337,7 @@
             this.selectServerTypComBox.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.selectServerTypComBox.FormattingEnabled = true;
             this.selectServerTypComBox.ItemHeight = 23;
-            this.selectServerTypComBox.Location = new System.Drawing.Point(174, 40);
+            this.selectServerTypComBox.Location = new System.Drawing.Point(174, 37);
             this.selectServerTypComBox.Name = "selectServerTypComBox";
             this.selectServerTypComBox.Size = new System.Drawing.Size(186, 29);
             this.selectServerTypComBox.TabIndex = 5;
@@ -346,7 +347,7 @@
             // selectServTypeLabel
             // 
             this.selectServTypeLabel.AutoSize = true;
-            this.selectServTypeLabel.Location = new System.Drawing.Point(45, 40);
+            this.selectServTypeLabel.Location = new System.Drawing.Point(45, 37);
             this.selectServTypeLabel.Name = "selectServTypeLabel";
             this.selectServTypeLabel.Size = new System.Drawing.Size(123, 19);
             this.selectServTypeLabel.TabIndex = 4;
@@ -356,7 +357,7 @@
             // 
             this.selectServiceComBox.FormattingEnabled = true;
             this.selectServiceComBox.ItemHeight = 23;
-            this.selectServiceComBox.Location = new System.Drawing.Point(174, 111);
+            this.selectServiceComBox.Location = new System.Drawing.Point(174, 114);
             this.selectServiceComBox.Name = "selectServiceComBox";
             this.selectServiceComBox.Size = new System.Drawing.Size(235, 29);
             this.selectServiceComBox.TabIndex = 3;
@@ -366,7 +367,7 @@
             // selectServiceLabel
             // 
             this.selectServiceLabel.AutoSize = true;
-            this.selectServiceLabel.Location = new System.Drawing.Point(45, 107);
+            this.selectServiceLabel.Location = new System.Drawing.Point(45, 114);
             this.selectServiceLabel.Name = "selectServiceLabel";
             this.selectServiceLabel.Size = new System.Drawing.Size(96, 19);
             this.selectServiceLabel.TabIndex = 2;
@@ -386,7 +387,7 @@
             // selectServerLabel
             // 
             this.selectServerLabel.AutoSize = true;
-            this.selectServerLabel.Location = new System.Drawing.Point(45, 74);
+            this.selectServerLabel.Location = new System.Drawing.Point(45, 76);
             this.selectServerLabel.Name = "selectServerLabel";
             this.selectServerLabel.Size = new System.Drawing.Size(92, 19);
             this.selectServerLabel.TabIndex = 0;
@@ -404,7 +405,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WindowMain";
             this.Padding = new System.Windows.Forms.Padding(15, 60, 15, 16);
-            this.Text = "ServicesControl";
+            this.Text = "Services Control";
             this.Load += new System.EventHandler(this.WindowMain_Load);
             this.panelBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

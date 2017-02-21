@@ -91,7 +91,7 @@
             this.DisableBtn.Size = new System.Drawing.Size(75, 25);
             this.DisableBtn.TabIndex = 4;
             this.DisableBtn.Text = "Disable";
-            this.DisableBtn.UseSelectable = true;
+            this.DisableBtn.UseSelectable = false;
             this.DisableBtn.Click += new System.EventHandler(this.DisableBtn_Click);
             // 
             // EnableBtn
@@ -101,7 +101,7 @@
             this.EnableBtn.Size = new System.Drawing.Size(75, 25);
             this.EnableBtn.TabIndex = 3;
             this.EnableBtn.Text = "Enable";
-            this.EnableBtn.UseSelectable = true;
+            this.EnableBtn.UseSelectable = false;
             this.EnableBtn.Click += new System.EventHandler(this.EnableBtn_Click);
             // 
             // restartBtn
@@ -111,7 +111,7 @@
             this.restartBtn.Size = new System.Drawing.Size(75, 25);
             this.restartBtn.TabIndex = 2;
             this.restartBtn.Text = "Restart";
-            this.restartBtn.UseSelectable = true;
+            this.restartBtn.UseSelectable = false;
             this.restartBtn.Click += new System.EventHandler(this.restartBtn_Click);
             // 
             // stopBtn
@@ -121,7 +121,7 @@
             this.stopBtn.Size = new System.Drawing.Size(75, 25);
             this.stopBtn.TabIndex = 1;
             this.stopBtn.Text = "Stop";
-            this.stopBtn.UseSelectable = true;
+            this.stopBtn.UseSelectable = false;
             this.stopBtn.Click += new System.EventHandler(this.stopBtn_Click);
             // 
             // startBtn
@@ -132,7 +132,7 @@
             this.startBtn.Size = new System.Drawing.Size(75, 25);
             this.startBtn.TabIndex = 0;
             this.startBtn.Text = "Start";
-            this.startBtn.UseSelectable = true;
+            this.startBtn.UseSelectable = false;
             this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
             // 
             // dataGridView1

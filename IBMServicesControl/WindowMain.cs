@@ -142,7 +142,8 @@ namespace IBMServicesControl
             selectedServices = selectServiceComBox.SelectedItem.ToString();
             selectedServer = selectServerComBox.SelectedItem.ToString();
 
-            SearchFunction();   
+            //SearchFunction();
+            Thread thread = new Thread(new ThreadStart(SearchFunction));   
         }
 
         private void startBtn_Click(object sender, EventArgs e)

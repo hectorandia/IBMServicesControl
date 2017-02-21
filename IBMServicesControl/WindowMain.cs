@@ -17,7 +17,7 @@ using System.Management;
 
 namespace IBMServicesControl
 {
-    public partial class WindowMain : Form, IMainObserver
+    public partial class WindowMain : MetroFramework.Forms.MetroForm, IMainObserver
     {
         private QueryServices query; 
         private string selectAll = "All";

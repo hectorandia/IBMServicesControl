@@ -44,6 +44,10 @@ namespace IBMServicesControl
 
 
         }
+        public void MetodoBasura()
+        {
+
+        }
 
         
         public void UpdateElement()

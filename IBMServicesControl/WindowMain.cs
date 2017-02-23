@@ -17,15 +17,13 @@ using System.Management;
 
 namespace IBMServicesControl
 {
-    public partial class WindowMain : Form, IMainObserver
+    public partial class WindowMain : MetroFramework.Forms.MetroForm, IMainObserver
     {
         private QueryServices query; 
         private string selectAll = "All";
         private string selectedServices;
         private string selectedServer;
-
-
-
+        private DataTable tableForGridView;
 
         public WindowMain()
         {
@@ -44,7 +42,14 @@ namespace IBMServicesControl
             selectServiceComBox.SelectedItem = 0;
             
             selectServerTypComBox.SelectedIndex = 0;
+            tableForGridView = new DataTable();
 
+            tableForGridView.Columns.Add("Select", typeof(bool));
+            tableForGridView.Columns.Add("Place", typeof(string));
+            tableForGridView.Columns.Add("ServerName", typeof(string));
+            tableForGridView.Columns.Add("ServiceName", typeof(string));
+            tableForGridView.Columns.Add("StarType", typeof(string));
+            tableForGridView.Columns.Add("State", typeof(string));
 
         }
 
@@ -145,7 +150,7 @@ namespace IBMServicesControl
             selectedServices = selectServiceComBox.SelectedItem.ToString();
             selectedServer = selectServerComBox.SelectedItem.ToString();
 
-            SearchFunction();   
+            StartThreadGridView();
         }
 
         private void startBtn_Click(object sender, EventArgs e)
@@ -186,7 +191,7 @@ namespace IBMServicesControl
                         }
                         else { }
                     }
-                    SearchFunction();
+                    StartThreadGridView();
                 }
                 catch (Exception ex)
                 {
@@ -239,7 +244,7 @@ namespace IBMServicesControl
                         }
                         else
                         {
-                            SearchFunction();
+                            StartThreadGridView();
                         }
                     }
                     
@@ -257,27 +262,54 @@ namespace IBMServicesControl
         #region DataGridView Functions
 
 
+        internal delegate void SetDataSourceDelegate(ServerInfo info);
 
+        private void SetDataSource(ServerInfo info)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new SetDataSourceDelegate(SetDataSource), info);
+            }
+            else
+            {
+                dataGridView1.Rows.Add(info.Select, info.Place, info.ServerName, info.ServiceName, info.StartType, info.State);               
+            }
+        }
+
+        private void StartThreadGridView()
+        {
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Rows.Clear();
+
+            Thread thread = new Thread(new ThreadStart(SearchFunction));
+            thread.Start();
+        }
 
 
         private void LoadedDataGridView(List<string> selectListServices, int index)
         {
             foreach (String sl in selectListServices)
             {
-
                 string server = query.CsvServer.Rows[index]["ServerName"].ToString();
 
                 ServiceController sc = query.GetServiceQuery(sl, server);
                 try
                 {
                     string estado = query.StartModeService(server, sl);
+                    ServerInfo Info = new ServerInfo
+                    {
+                        Select = true,
+                        Place = query.CsvServer.Rows[index]["PlaceName"].ToString(),
+                        ServerName = query.CsvServer.Rows[index]["ServerName"].ToString(),
+                        ServiceName = Convert.ToString(sc.ServiceName),
+                        StartType = estado,
+                        State = Convert.ToString(sc.Status)
+                    };
 
-                    dataGridView1.Rows.Add(true, query.CsvServer.Rows[index]["PlaceName"].ToString(), query.CsvServer.Rows[index]["ServerName"].ToString(),
-                    Convert.ToString(sc.ServiceName), estado, Convert.ToString(sc.Status));
-
-                    CellColorDataGridView();
+                    SetDataSource(Info);
+                    CellColorDataGridView();                    
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     if (MessageBox.Show(ex.Message + " . Continue?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
@@ -286,10 +318,43 @@ namespace IBMServicesControl
                     else
                     {
                         break;
-                    }                      
+                    }
                 }
-            }  
+            }
+
         }
+
+
+        //private void LoadedDataGridView(List<string> selectListServices, int index)
+        //{
+        //    foreach (String sl in selectListServices)
+        //    {
+
+        //        string server = query.CsvServer.Rows[index]["ServerName"].ToString();
+
+        //        ServiceController sc = query.GetServiceQuery(sl, server);
+        //        try
+        //        {
+        //            string estado = query.StartModeService(server, sl);
+
+        //            dataGridView1.Rows.Add(true, query.CsvServer.Rows[index]["PlaceName"].ToString(), query.CsvServer.Rows[index]["ServerName"].ToString(),
+        //            Convert.ToString(sc.ServiceName), estado, Convert.ToString(sc.Status));
+
+        //            CellColorDataGridView();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            if (MessageBox.Show(ex.Message + " . Continue?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+        //            {
+        //                continue;
+        //            }
+        //            else
+        //            {
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
 
 
 
@@ -326,7 +391,7 @@ namespace IBMServicesControl
          * */
         private void SearchFunction()
         {
-            dataGridView1.Rows.Clear();
+            //dataGridView1.Rows.Clear();
             
             //string selectedServices = selectServiceComBox.SelectedItem.ToString();
             //string selectedServer = selectServerComBox.SelectedItem.ToString();

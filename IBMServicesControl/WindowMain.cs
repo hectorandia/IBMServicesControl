@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ServiceQuery;
 using System.ServiceProcess;
 using System.Management;
+using MetroFramework;
 
 
 
@@ -298,7 +299,7 @@ namespace IBMServicesControl
                     string estado = query.StartModeService(server, sl);
                     ServerInfo Info = new ServerInfo
                     {
-                        Select = true,
+                        Select = query.Estado,
                         Place = query.CsvServer.Rows[index]["PlaceName"].ToString(),
                         ServerName = query.CsvServer.Rows[index]["ServerName"].ToString(),
                         ServiceName = Convert.ToString(sc.ServiceName),
@@ -323,39 +324,6 @@ namespace IBMServicesControl
             }
 
         }
-
-
-        //private void LoadedDataGridView(List<string> selectListServices, int index)
-        //{
-        //    foreach (String sl in selectListServices)
-        //    {
-
-        //        string server = query.CsvServer.Rows[index]["ServerName"].ToString();
-
-        //        ServiceController sc = query.GetServiceQuery(sl, server);
-        //        try
-        //        {
-        //            string estado = query.StartModeService(server, sl);
-
-        //            dataGridView1.Rows.Add(true, query.CsvServer.Rows[index]["PlaceName"].ToString(), query.CsvServer.Rows[index]["ServerName"].ToString(),
-        //            Convert.ToString(sc.ServiceName), estado, Convert.ToString(sc.Status));
-
-        //            CellColorDataGridView();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            if (MessageBox.Show(ex.Message + " . Continue?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
-        //            {
-        //                continue;
-        //            }
-        //            else
-        //            {
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
-
 
 
         /**
@@ -464,6 +432,7 @@ namespace IBMServicesControl
 
 
         #endregion
+
 
     }
 }

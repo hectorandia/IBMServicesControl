@@ -26,9 +26,12 @@ namespace ServiceQuery
         private string place1;
         private string place2;
 
+        private bool checkBoxDefaultValue;
+
         public ImportInfo()
         {
             LoadCsvFiles();
+            checkBoxDefaultValue = Convert.ToBoolean(ConfigurationManager.AppSettings["checkBoxDefaultValue"]);
         }
         
         /*
@@ -167,6 +170,14 @@ namespace ServiceQuery
             get
             {
                 return place2;
+            }
+        }
+
+        public bool CheckBoxDefaultValue
+        {
+            get
+            {
+                return checkBoxDefaultValue;
             }
         }
 

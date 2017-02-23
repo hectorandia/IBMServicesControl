@@ -21,6 +21,7 @@ namespace ServiceQuery
         private DataTable csvService;
         private ManagementObject manager;
         private ManagementScope conection;
+        private bool estado;
 
 
         public QueryServices()
@@ -28,6 +29,7 @@ namespace ServiceQuery
             info = new ImportInfo();
             place1 = info.Place1;
             place2 = info.Place2;
+            estado = info.CheckBoxDefaultValue;
         }
 
         #region Set ComboBox
@@ -143,6 +145,14 @@ namespace ServiceQuery
         public string ServerTyp2()
         {
             return info.ServerTyp2;
+        }
+
+        public bool Estado
+        {
+            get
+            {
+                return estado;
+            }
         }
 
         #endregion Geters

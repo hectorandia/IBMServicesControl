@@ -17,12 +17,15 @@ using System.Management;
 
 namespace IBMServicesControl
 {
-    public partial class WindowMain : MetroFramework.Forms.MetroForm, IMainObserver
+    public partial class WindowMain : Form, IMainObserver
     {
         private QueryServices query; 
         private string selectAll = "All";
         private string selectedServices;
         private string selectedServer;
+
+
+
 
         public WindowMain()
         {
@@ -32,9 +35,9 @@ namespace IBMServicesControl
         #region WindowsForm Components
         private void WindowMain_Load(object sender, EventArgs e)
         {
-            //query = QueryServices.UniqueInstance;
             query = new QueryServices();
             query.RegisterObs(this);
+
             selectServerTypComBox.Items.Add(selectAll);
             selectServerTypComBox.Items.Add(query.ServerTyp1());
             selectServerTypComBox.Items.Add(query.ServerTyp2());
@@ -45,7 +48,7 @@ namespace IBMServicesControl
 
         }
 
-        
+
         public void UpdateElement()
         {
             UpdateServerComboBox();
@@ -142,8 +145,7 @@ namespace IBMServicesControl
             selectedServices = selectServiceComBox.SelectedItem.ToString();
             selectedServer = selectServerComBox.SelectedItem.ToString();
 
-            //SearchFunction();
-            Thread thread = new Thread(new ThreadStart(SearchFunction));   
+            SearchFunction();   
         }
 
         private void startBtn_Click(object sender, EventArgs e)

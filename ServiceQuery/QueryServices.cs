@@ -21,7 +21,6 @@ namespace ServiceQuery
         private DataTable csvService;
         private ManagementObject manager;
         private ManagementScope conection;
-        //static readonly QueryServices instance = new QueryServices();
 
 
         public QueryServices()
@@ -31,12 +30,6 @@ namespace ServiceQuery
             place2 = info.Place2;
         }
 
-        
-        //public static QueryServices UniqueInstance
-        //{
-        //    get { return instance; }
-        //}
-        
         #region Set ComboBox
         /*
          * Metodo encargado de proporcionar informacion para
@@ -153,6 +146,7 @@ namespace ServiceQuery
         }
 
         #endregion Geters
+
 
 
         public String PingToServer(string server)

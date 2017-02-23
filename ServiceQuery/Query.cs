@@ -36,19 +36,11 @@ namespace ServiceQuery
         * */
        public ManagementScope ConectToServer(string serverName)
         {
-            try
-            {
-                ConnectionOptions conectionsOptions = new ConnectionOptions();
-                //se determina la ruta a administrar
-                ManagementScope scope = new ManagementScope(@"\\" + serverName + @"\root\cimv2");
-                scope.Options = conectionsOptions;
-                return scope;
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            
+            ConnectionOptions conectionsOptions = new ConnectionOptions();
+            //se determina la ruta a administrar
+            ManagementScope scope = new ManagementScope(@"\\" + serverName + @"\root\cimv2");
+            scope.Options =  conectionsOptions;
+            return scope;
         }
     }
 }

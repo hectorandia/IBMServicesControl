@@ -243,7 +243,7 @@ namespace ServiceQuery
                 {
                     sc.Stop();
                 }
-                sc.WaitForStatus(ServiceControllerStatus.Stopped, timeout);
+                //sc.WaitForStatus(ServiceControllerStatus.Stopped, timeout);
                 sc.Close();
             }
             catch(Exception ex)
@@ -255,8 +255,7 @@ namespace ServiceQuery
 
         public void StartService(string nameService, string nameServer)
         {
-            ServiceController sc = new ServiceController(nameService, nameServer);
-            
+            ServiceController sc = new ServiceController(nameService, nameServer);           
             try
             {
                 TimeSpan timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
@@ -266,7 +265,7 @@ namespace ServiceQuery
                     sc.Start();
                 }
                 else { }
-                sc.WaitForStatus(ServiceControllerStatus.Running, timeout);
+                //sc.WaitForStatus(ServiceControllerStatus.Running, timeout);
                 sc.Close();
             }
             catch (Exception ex)

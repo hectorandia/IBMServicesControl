@@ -150,22 +150,25 @@ namespace IBMServicesControl
         {
             selectedServices = selectServiceComBox.SelectedItem.ToString();
             selectedServer = selectServerComBox.SelectedItem.ToString();
-
+            DisableAllButton();
             StartThreadGridView();
         }
 
         private void startBtn_Click(object sender, EventArgs e)
         {
+            DisableAllButton();
             StartStopBtnTask(0);
         }
 
         private void stopBtn_Click(object sender, EventArgs e)
         {
+            DisableAllButton();
             StartStopBtnTask(1);                      
         }
 
         private void restartBtn_Click(object sender, EventArgs e)
         {
+            DisableAllButton();
             StartStopBtnTask(2);
         }
         #endregion Buttons
@@ -203,11 +206,13 @@ namespace IBMServicesControl
 
         private void EnableBtn_Click(object sender, EventArgs e)
         {
+            DisableAllButton();
             HandlingServiceButton("Automatic");
         }
 
         private void DisableBtn_Click(object sender, EventArgs e)
         {
+            DisableAllButton();
             HandlingServiceButton("Disabled");
         }
 
@@ -273,7 +278,9 @@ namespace IBMServicesControl
             }
             else
             {
-                dataGridView1.Rows.Add(info.Select, info.Place, info.ServerName, info.ServiceName, info.StartType, info.State);               
+                dataGridView1.Rows.Add(info.Select, info.Place, info.ServerName, info.ServiceName, info.StartType, info.State);
+                dataGridView1.Rows[0].Cells[0].Selected = false;
+                LoadProgressBar();
             }
         }
 
@@ -281,17 +288,26 @@ namespace IBMServicesControl
         {
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Rows.Clear();
+            progressBar.Maximum = query.CsvServer.Rows.Count * query.CsvService.Rows.Count;
+            progressBar.Visible = true;
+            progressBar.Value = 0;
 
             Thread thread = new Thread(new ThreadStart(SearchFunction));
             thread.Start();
         }
 
 
+
+        /*
+         * Prepara los Objectos que seran cargado en forma de Row en el Data grid view
+         * */
         private void LoadedDataGridView(List<string> selectListServices, int index)
         {
+             
             foreach (String sl in selectListServices)
             {
                 string server = query.CsvServer.Rows[index]["ServerName"].ToString();
+
 
                 ServiceController sc = query.GetServiceQuery(sl, server);
                 try
@@ -308,7 +324,8 @@ namespace IBMServicesControl
                     };
 
                     SetDataSource(Info);
-                    CellColorDataGridView();                    
+                    CellColorDataGridView();
+                                    
                 }
                 catch (Exception ex)
                 {
@@ -431,8 +448,52 @@ namespace IBMServicesControl
 
 
 
+
         #endregion
 
+        private void LoadProgressBar()
+        {
+            progressBar.Value += 1;
+            if(progressBar.Value == progressBar.Maximum)
+            {
+                progressBar.Visible = false;
+                EnableAllButton();               
+            }
+        }
 
+        private void dataGridView1_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells["Select"].Value) == true)
+                {
+                    row.Cells["Select"].Value = false;
+                }
+                else
+                {
+                    row.Cells["Select"].Value = true;
+                }
+            }
+        }
+
+        private void DisableAllButton()
+        {
+            searchBtn.Enabled = false;
+            stopBtn.Enabled = false;
+            startBtn.Enabled = false;
+            restartBtn.Enabled = false;
+            EnableBtn.Enabled = false;
+            DisableBtn.Enabled = false;
+        }
+
+        private void EnableAllButton()
+        {
+            searchBtn.Enabled = true;
+            stopBtn.Enabled = true;
+            startBtn.Enabled = true;
+            restartBtn.Enabled = true;
+            EnableBtn.Enabled = true;
+            DisableBtn.Enabled = true;
+        }
     }
 }

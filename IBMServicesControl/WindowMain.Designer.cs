@@ -56,6 +56,7 @@
             this.selectServiceLabel = new MetroFramework.Controls.MetroLabel();
             this.selectServerComBox = new MetroFramework.Controls.MetroComboBox();
             this.selectServerLabel = new MetroFramework.Controls.MetroLabel();
+            this.progressBar = new MetroFramework.Controls.MetroProgressBar();
             this.panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelTop.SuspendLayout();
@@ -186,6 +187,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1154, 486);
             this.dataGridView1.TabIndex = 3;
+            this.dataGridView1.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseDoubleClick);
             // 
             // Select
             // 
@@ -205,28 +207,24 @@
             this.Place.FillWeight = 340.1361F;
             this.Place.HeaderText = "Place";
             this.Place.Name = "Place";
-            this.Place.ReadOnly = true;
             // 
             // serverName
             // 
             this.serverName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.serverName.HeaderText = "Server Name";
             this.serverName.Name = "serverName";
-            this.serverName.ReadOnly = true;
             // 
             // serviceName
             // 
             this.serviceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.serviceName.HeaderText = "Service Name";
             this.serviceName.Name = "serviceName";
-            this.serviceName.ReadOnly = true;
             // 
             // startType
             // 
             this.startType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.startType.HeaderText = "Start Type";
             this.startType.Name = "startType";
-            this.startType.ReadOnly = true;
             // 
             // state
             // 
@@ -234,7 +232,6 @@
             this.state.FillWeight = 108.8435F;
             this.state.HeaderText = "State";
             this.state.Name = "state";
-            this.state.ReadOnly = true;
             this.state.Width = 150;
             // 
             // panelTop
@@ -333,7 +330,7 @@
             this.selectServerTypComBox.ItemHeight = 23;
             this.selectServerTypComBox.Location = new System.Drawing.Point(187, 41);
             this.selectServerTypComBox.Name = "selectServerTypComBox";
-            this.selectServerTypComBox.Size = new System.Drawing.Size(121, 29);
+            this.selectServerTypComBox.Size = new System.Drawing.Size(212, 29);
             this.selectServerTypComBox.TabIndex = 5;
             this.selectServerTypComBox.UseSelectable = true;
             this.selectServerTypComBox.SelectedIndexChanged += new System.EventHandler(this.SelectTypComBox_SelectedIndexChanged);
@@ -373,7 +370,7 @@
             this.selectServerComBox.ItemHeight = 23;
             this.selectServerComBox.Location = new System.Drawing.Point(187, 78);
             this.selectServerComBox.Name = "selectServerComBox";
-            this.selectServerComBox.Size = new System.Drawing.Size(121, 29);
+            this.selectServerComBox.Size = new System.Drawing.Size(212, 29);
             this.selectServerComBox.TabIndex = 1;
             this.selectServerComBox.UseSelectable = true;
             this.selectServerComBox.SelectedIndexChanged += new System.EventHandler(this.selectServerComBox_SelectedIndexChanged);
@@ -387,11 +384,21 @@
             this.selectServerLabel.TabIndex = 0;
             this.selectServerLabel.Text = "Select Server :";
             // 
+            // progressBar
+            // 
+            this.progressBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar.Location = new System.Drawing.Point(15, 749);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(1154, 12);
+            this.progressBar.TabIndex = 4;
+            this.progressBar.Visible = false;
+            // 
             // WindowMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 857);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
@@ -399,7 +406,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WindowMain";
             this.Padding = new System.Windows.Forms.Padding(15, 60, 15, 16);
-            this.Text = "ServicesControl";
+            this.Text = "Services Control";
             this.Load += new System.EventHandler(this.WindowMain_Load);
             this.panelBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -452,6 +459,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn startType;
         private System.Windows.Forms.DataGridViewTextBoxColumn state;
         private MetroFramework.Controls.MetroPanel panelTop;
+        private MetroFramework.Controls.MetroProgressBar progressBar;
     }
 }
 

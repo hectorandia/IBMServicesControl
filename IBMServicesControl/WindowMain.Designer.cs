@@ -76,7 +76,7 @@
             this.panelBottom.HorizontalScrollbarBarColor = true;
             this.panelBottom.HorizontalScrollbarHighlightOnWheel = false;
             this.panelBottom.HorizontalScrollbarSize = 10;
-            this.panelBottom.Location = new System.Drawing.Point(15, 761);
+            this.panelBottom.Location = new System.Drawing.Point(15, 647);
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Size = new System.Drawing.Size(1154, 80);
             this.panelBottom.TabIndex = 0;
@@ -87,6 +87,8 @@
             // 
             // DisableBtn
             // 
+            this.DisableBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DisableBtn.Location = new System.Drawing.Point(1047, 28);
             this.DisableBtn.Name = "DisableBtn";
             this.DisableBtn.Size = new System.Drawing.Size(75, 25);
@@ -97,6 +99,8 @@
             // 
             // EnableBtn
             // 
+            this.EnableBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.EnableBtn.Location = new System.Drawing.Point(910, 28);
             this.EnableBtn.Name = "EnableBtn";
             this.EnableBtn.Size = new System.Drawing.Size(75, 25);
@@ -185,7 +189,7 @@
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1154, 486);
+            this.dataGridView1.Size = new System.Drawing.Size(1154, 372);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseDoubleClick);
             // 
@@ -275,8 +279,10 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(868, 36);
+            this.label1.Location = new System.Drawing.Point(808, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 19);
             this.label1.TabIndex = 10;
@@ -284,11 +290,12 @@
             // 
             // pinTextBox
             // 
+            this.pinTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
             this.pinTextBox.CustomButton.Image = null;
-            this.pinTextBox.CustomButton.Location = new System.Drawing.Point(82, 2);
+            this.pinTextBox.CustomButton.Location = new System.Drawing.Point(140, 2);
             this.pinTextBox.CustomButton.Name = "";
             this.pinTextBox.CustomButton.Size = new System.Drawing.Size(15, 15);
             this.pinTextBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -297,7 +304,7 @@
             this.pinTextBox.CustomButton.UseSelectable = true;
             this.pinTextBox.CustomButton.Visible = false;
             this.pinTextBox.Lines = new string[0];
-            this.pinTextBox.Location = new System.Drawing.Point(1024, 37);
+            this.pinTextBox.Location = new System.Drawing.Point(966, 37);
             this.pinTextBox.MaxLength = 32767;
             this.pinTextBox.Name = "pinTextBox";
             this.pinTextBox.PasswordChar = '\0';
@@ -306,7 +313,7 @@
             this.pinTextBox.SelectionLength = 0;
             this.pinTextBox.SelectionStart = 0;
             this.pinTextBox.ShortcutsEnabled = true;
-            this.pinTextBox.Size = new System.Drawing.Size(100, 20);
+            this.pinTextBox.Size = new System.Drawing.Size(158, 20);
             this.pinTextBox.TabIndex = 9;
             this.pinTextBox.UseSelectable = true;
             this.pinTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -315,6 +322,8 @@
             // 
             // pingBtn
             // 
+            this.pingBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pingBtn.Location = new System.Drawing.Point(1048, 64);
             this.pingBtn.Name = "pingBtn";
             this.pingBtn.Size = new System.Drawing.Size(75, 23);
@@ -387,7 +396,7 @@
             // progressBar
             // 
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar.Location = new System.Drawing.Point(15, 749);
+            this.progressBar.Location = new System.Drawing.Point(15, 635);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(1154, 12);
             this.progressBar.TabIndex = 4;
@@ -397,16 +406,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 857);
+            this.ClientSize = new System.Drawing.Size(1184, 743);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(900, 550);
             this.Name = "WindowMain";
             this.Padding = new System.Windows.Forms.Padding(15, 60, 15, 16);
             this.Text = "Services Control";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WindowMain_FormClosed);
             this.Load += new System.EventHandler(this.WindowMain_Load);
             this.panelBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

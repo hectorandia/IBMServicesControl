@@ -25,6 +25,8 @@ namespace IBMServicesControl
         private string selectedServices;
         private string selectedServer;
         private DataTable tableForGridView;
+        private int indexServicesProgressBar;
+        private int indexServerProgressBar;
 
         public WindowMain()
         {
@@ -37,7 +39,7 @@ namespace IBMServicesControl
             query = new QueryServices();
             query.RegisterObs(this);
 
-            selectServerTypComBox.Items.Add(selectAll);
+            //selectServerTypComBox.Items.Add(selectAll);
             selectServerTypComBox.Items.Add(query.ServerTyp1());
             selectServerTypComBox.Items.Add(query.ServerTyp2());
             selectServiceComBox.SelectedItem = 0;
@@ -288,9 +290,9 @@ namespace IBMServicesControl
         {
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Rows.Clear();
-            progressBar.Maximum = query.CsvServer.Rows.Count * query.CsvService.Rows.Count;
-            progressBar.Visible = true;
-            progressBar.Value = 0;
+            //this.progressBar.Maximum = query.CsvServer.Rows.Count * query.CsvService.Rows.Count;
+            this.progressBar.Visible = true;
+            this.progressBar.Value = 0;
 
             Thread thread = new Thread(new ThreadStart(SearchFunction));
             thread.Start();
@@ -303,7 +305,7 @@ namespace IBMServicesControl
          * */
         private void LoadedDataGridView(List<string> selectListServices, int index)
         {
-             
+            indexServicesProgressBar = selectListServices.Count;
             foreach (String sl in selectListServices)
             {
                 string server = query.CsvServer.Rows[index]["ServerName"].ToString();
@@ -329,14 +331,17 @@ namespace IBMServicesControl
                 }
                 catch (Exception ex)
                 {
-                    if (MessageBox.Show(ex.Message + " . Continue?", "Exit", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    if (MessageBox.Show(ex.Message + " . Continue?", "Exit", MessageBoxButtons.OK) == DialogResult.OK)
                     {
+                        indexServicesProgressBar -= 1;
                         continue;
                     }
                     else
                     {
-                        break;
+                        Environment.Exit(0);
+                        break;                        
                     }
+                    
                 }
             }
 
@@ -408,6 +413,7 @@ namespace IBMServicesControl
                 }
             }
 
+
             SelectedCheck(selectedServer, selectListServices);            
          }
 
@@ -423,25 +429,31 @@ namespace IBMServicesControl
          * */
         private void SelectedCheck(string selectedServer, List<string> selectListServices)
         {
+            indexServerProgressBar = 0;
             for (int i = 0; i < query.CsvServer.Rows.Count; i++)
             {
                 try
                 {
                     if (query.CsvServer.Rows[i]["ServerName"].ToString() == selectedServer)
                     {
+                        indexServerProgressBar += 1;
                         LoadedDataGridView(selectListServices, i);
+
                     }
                     else if (selectedServer == selectAll )
                     {
+                        indexServerProgressBar = query.CsvServer.Rows.Count;
                         LoadedDataGridView(selectListServices, i);
                     }
+
                     
                 }
                 catch (Exception ex)
                 {
                     continue;
                 }
-            }            
+            }
+            
         }
 
 
@@ -453,7 +465,8 @@ namespace IBMServicesControl
 
         private void LoadProgressBar()
         {
-            progressBar.Value += 1;
+            this.progressBar.Maximum = indexServerProgressBar * indexServicesProgressBar;
+            progressBar.Increment(1);
             if(progressBar.Value == progressBar.Maximum)
             {
                 progressBar.Visible = false;
@@ -474,6 +487,7 @@ namespace IBMServicesControl
                     row.Cells["Select"].Value = true;
                 }
             }
+            dataGridView1.RefreshEdit();
         }
 
         private void DisableAllButton()
@@ -494,6 +508,13 @@ namespace IBMServicesControl
             restartBtn.Enabled = true;
             EnableBtn.Enabled = true;
             DisableBtn.Enabled = true;
+        }
+
+        private void WindowMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.ExitThread();
+            Application.Exit();
+            Environment.Exit(0);
         }
     }
 }

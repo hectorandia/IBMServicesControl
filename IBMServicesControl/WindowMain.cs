@@ -14,8 +14,6 @@ using MetroFramework;
 
 
 
-
-
 namespace IBMServicesControl
 {
     public partial class WindowMain : MetroFramework.Forms.MetroForm, IMainObserver
@@ -24,9 +22,9 @@ namespace IBMServicesControl
         private string selectAll = "All";
         private string selectedServices;
         private string selectedServer;
-        private DataTable tableForGridView;
         private int indexServicesProgressBar;
         private int indexServerProgressBar;
+        private Thread thread;
 
         public WindowMain()
         {
@@ -39,23 +37,14 @@ namespace IBMServicesControl
             query = new QueryServices();
             query.RegisterObs(this);
 
-            //selectServerTypComBox.Items.Add(selectAll);
             selectServerTypComBox.Items.Add(query.ServerTyp1());
             selectServerTypComBox.Items.Add(query.ServerTyp2());
-            selectServiceComBox.SelectedItem = 0;
-            
+            selectServiceComBox.SelectedItem = 0;            
             selectServerTypComBox.SelectedIndex = 0;
-            tableForGridView = new DataTable();
-
-            tableForGridView.Columns.Add("Select", typeof(bool));
-            tableForGridView.Columns.Add("Place", typeof(string));
-            tableForGridView.Columns.Add("ServerName", typeof(string));
-            tableForGridView.Columns.Add("ServiceName", typeof(string));
-            tableForGridView.Columns.Add("StarType", typeof(string));
-            tableForGridView.Columns.Add("State", typeof(string));
+            cancelBtn.Enabled = false;
+      
 
         }
-
 
         public void UpdateElement()
         {
@@ -79,6 +68,16 @@ namespace IBMServicesControl
             }
         }
 
+        private void LoadProgressBar()
+        {
+            this.progressBar.Maximum = indexServerProgressBar * indexServicesProgressBar;
+            this.progressBar.Increment(1);
+            if (progressBar.Value == progressBar.Maximum)
+            {
+                progressBar.Visible = false;
+                EnableAllButton();
+            }
+        }
 
 
         #endregion WindowsFroms Components
@@ -146,7 +145,14 @@ namespace IBMServicesControl
         {
             MessageBox.Show(query.PingToServer(pinTextBox.Text));
         }
-       
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            thread.Abort();
+            dataGridView1.Rows.Clear();
+            progressBar.Visible = false;
+            EnableAllButton();
+        }
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
@@ -264,6 +270,29 @@ namespace IBMServicesControl
             }
 
         }
+
+        private void DisableAllButton()
+        {
+            cancelBtn.Enabled = true;
+            searchBtn.Enabled = false;
+            stopBtn.Enabled = false;
+            startBtn.Enabled = false;
+            restartBtn.Enabled = false;
+            EnableBtn.Enabled = false;
+            DisableBtn.Enabled = false;
+        }
+
+        private void EnableAllButton()
+        {
+            cancelBtn.Enabled = false;
+            searchBtn.Enabled = true;
+            stopBtn.Enabled = true;
+            startBtn.Enabled = true;
+            restartBtn.Enabled = true;
+            EnableBtn.Enabled = true;
+            DisableBtn.Enabled = true;
+        }
+
         #endregion Buttons Functions
 
 
@@ -290,11 +319,10 @@ namespace IBMServicesControl
         {
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Rows.Clear();
-            //this.progressBar.Maximum = query.CsvServer.Rows.Count * query.CsvService.Rows.Count;
             this.progressBar.Visible = true;
             this.progressBar.Value = 0;
 
-            Thread thread = new Thread(new ThreadStart(SearchFunction));
+            thread = new Thread(new ThreadStart(SearchFunction));
             thread.Start();
         }
 
@@ -329,12 +357,12 @@ namespace IBMServicesControl
                     CellColorDataGridView();
                                     
                 }
-                catch (Exception ex)
+                catch (ThreadAbortException ex)
                 {
-                    if (MessageBox.Show(ex.Message + " . Continue?", "Exit", MessageBoxButtons.OK) == DialogResult.OK)
+                    if (MessageBox.Show("Möchten Sie die Ausgabe ausführen ?", "Services Control", MessageBoxButtons.OK) == DialogResult.OK)
                     {
-                        indexServicesProgressBar -= 1;
-                        continue;
+                        indexServicesProgressBar = 0;
+                        break;
                     }
                     else
                     {
@@ -343,9 +371,39 @@ namespace IBMServicesControl
                     }
                     
                 }
+                catch(Exception ex)
+                {
+                    if (MessageBox.Show(ex.Message + " . Continue?", "Services Control", MessageBoxButtons.OK) == DialogResult.OK)
+                    {
+                        indexServicesProgressBar -= 1;
+                        continue;
+                    }
+                    else
+                    {
+                        Environment.Exit(0);
+                        break;
+                    }
+                }
             }
 
         }
+
+        private void dataGridView1_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells["Select"].Value) == true)
+                {
+                    row.Cells["Select"].Value = false;
+                }
+                else
+                {
+                    row.Cells["Select"].Value = true;
+                }
+            }
+            dataGridView1.RefreshEdit();
+        }
+
 
 
         /**
@@ -381,11 +439,6 @@ namespace IBMServicesControl
          * */
         private void SearchFunction()
         {
-            //dataGridView1.Rows.Clear();
-            
-            //string selectedServices = selectServiceComBox.SelectedItem.ToString();
-            //string selectedServer = selectServerComBox.SelectedItem.ToString();
-
             List<string> selectListServices = new List<string>();
             List<string> selectListServers = new List<string>();
 
@@ -412,8 +465,6 @@ namespace IBMServicesControl
                     continue;
                 }
             }
-
-
             SelectedCheck(selectedServer, selectListServices);            
          }
 
@@ -456,59 +507,8 @@ namespace IBMServicesControl
             
         }
 
-
-
-
-
-
         #endregion
 
-        private void LoadProgressBar()
-        {
-            this.progressBar.Maximum = indexServerProgressBar * indexServicesProgressBar;
-            progressBar.Increment(1);
-            if(progressBar.Value == progressBar.Maximum)
-            {
-                progressBar.Visible = false;
-                EnableAllButton();               
-            }
-        }
-
-        private void dataGridView1_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                if (Convert.ToBoolean(row.Cells["Select"].Value) == true)
-                {
-                    row.Cells["Select"].Value = false;
-                }
-                else
-                {
-                    row.Cells["Select"].Value = true;
-                }
-            }
-            dataGridView1.RefreshEdit();
-        }
-
-        private void DisableAllButton()
-        {
-            searchBtn.Enabled = false;
-            stopBtn.Enabled = false;
-            startBtn.Enabled = false;
-            restartBtn.Enabled = false;
-            EnableBtn.Enabled = false;
-            DisableBtn.Enabled = false;
-        }
-
-        private void EnableAllButton()
-        {
-            searchBtn.Enabled = true;
-            stopBtn.Enabled = true;
-            startBtn.Enabled = true;
-            restartBtn.Enabled = true;
-            EnableBtn.Enabled = true;
-            DisableBtn.Enabled = true;
-        }
 
         private void WindowMain_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -516,5 +516,6 @@ namespace IBMServicesControl
             Application.Exit();
             Environment.Exit(0);
         }
+
     }
 }

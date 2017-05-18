@@ -57,6 +57,7 @@
             this.selectServerComBox = new MetroFramework.Controls.MetroComboBox();
             this.selectServerLabel = new MetroFramework.Controls.MetroLabel();
             this.progressBar = new MetroFramework.Controls.MetroProgressBar();
+            this.cancelBtn = new MetroFramework.Controls.MetroButton();
             this.panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelTop.SuspendLayout();
@@ -243,6 +244,7 @@
             this.panelTop.AutoScroll = true;
             this.panelTop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelTop.BackColor = System.Drawing.SystemColors.Control;
+            this.panelTop.Controls.Add(this.cancelBtn);
             this.panelTop.Controls.Add(this.searchBtn);
             this.panelTop.Controls.Add(this.label1);
             this.panelTop.Controls.Add(this.pinTextBox);
@@ -272,6 +274,7 @@
             this.searchBtn.Location = new System.Drawing.Point(455, 115);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(85, 25);
+            this.searchBtn.Style = MetroFramework.MetroColorStyle.Blue;
             this.searchBtn.TabIndex = 11;
             this.searchBtn.Text = "Search ";
             this.searchBtn.UseSelectable = true;
@@ -402,6 +405,16 @@
             this.progressBar.TabIndex = 4;
             this.progressBar.Visible = false;
             // 
+            // cancelBtn
+            // 
+            this.cancelBtn.Location = new System.Drawing.Point(568, 115);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(85, 25);
+            this.cancelBtn.TabIndex = 12;
+            this.cancelBtn.Text = "Cancel";
+            this.cancelBtn.UseSelectable = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
             // WindowMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -471,6 +484,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn state;
         private MetroFramework.Controls.MetroPanel panelTop;
         private MetroFramework.Controls.MetroProgressBar progressBar;
+        private MetroFramework.Controls.MetroButton cancelBtn;
     }
 }
 

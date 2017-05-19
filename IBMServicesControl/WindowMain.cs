@@ -37,10 +37,9 @@ namespace IBMServicesControl
             query = new QueryServices();
             query.RegisterObs(this);
 
-            selectServerTypComBox.Items.Add(query.ServerTyp1());
-            selectServerTypComBox.Items.Add(query.ServerTyp2());
+            SetStarComboBoxServerTypValue();
             selectServiceComBox.SelectedItem = 0;            
-            //selectServerTypComBox.SelectedIndex = 0;
+            selectServerTypComBox.SelectedIndex = 0;
             cancelBtn.Enabled = false;
         }
 
@@ -48,6 +47,14 @@ namespace IBMServicesControl
         {
             UpdateServerComboBox();
             UpdateServiceComboBox();
+        }
+
+        public void SetStarComboBoxServerTypValue()
+        {
+            foreach (string typ in query.GetServersTyp)
+            {
+                selectServerTypComBox.Items.Add(typ);
+            }
         }
 
         /**

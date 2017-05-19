@@ -24,8 +24,10 @@ namespace ServiceQuery
         private ManagementObject manager;
         private ManagementScope conection;
         private bool estado;
-        private List<string> ServicesList;
-        private List<string> ServicesListAux;
+        private List<string> ServicesListTyp;
+        private List<string> ServicesListTypAux;
+        private List<string> ServersListTyp;
+        private List<string> ServersListTypAux;
 
         public QueryServices()
         {
@@ -33,9 +35,9 @@ namespace ServiceQuery
             place1 = info.Place1;
             place2 = info.Place2;
             estado = info.CheckBoxDefaultValue;
-            LoadServersTable(info.PathServers1);
+            LoadServersTable();
             LoadServicesTable(info.PathServices1);
-            
+            SetServersTyp();
         }
 
         #region Set ComboBox
@@ -54,7 +56,7 @@ namespace ServiceQuery
             csvServer = new DataTable();
             csvService = new DataTable();
 
-            ServicesListAux = new List<string>();
+            ServicesListTypAux = new List<string>();
 
             csvServer.Columns.Add("ServerTyp", typeof(string));
             csvServer.Columns.Add("ServerName", typeof(string));
@@ -76,7 +78,7 @@ namespace ServiceQuery
                 if (csvServicesAux.Rows[j]["ServerTyp"].ToString().Equals(selectedServer))
                 {
                     csvService.ImportRow(csvServicesAux.Rows[j]);
-                    ServicesListAux.Add(csvServicesAux.Rows[j]["ServiceTyp"].ToString());
+                    ServicesListTypAux.Add(csvServicesAux.Rows[j]["ServiceTyp"].ToString());
                 }
             }
 
@@ -84,22 +86,6 @@ namespace ServiceQuery
 
             this.NotifyObs();
         }
-
-        public void SetComboServer(string path)
-        {
-            //
-            //se asigna la ubicacion del archivo csv con la 
-            //informacion de los servidores de tipo 1
-            //
-            string csv_file = path;
-            //
-            //se invoca el metodo GetDataTableFromSvc entregandole 
-            //como parametro la ubicacion del archivo csv con la
-            //informacion de los servidores de tipo 1
-            //
-            csvServer = info.GetDataTableFromScV(csv_file);
-        }
-
 
         public void SetComboService(string path)
         {
@@ -173,7 +159,15 @@ namespace ServiceQuery
         {
             get
             {
-                return ServicesList;
+                return ServicesListTyp;
+            }
+        }
+
+        public List<string> GetServersTyp
+        {
+            get
+            {
+                return ServersListTyp;
             }
         }
 
@@ -377,11 +371,10 @@ namespace ServiceQuery
          * Metodo encargado de guardar la informacion correspondiente 
          * a los nombres de los servidores en una variable de tipo Table
          * */
-        public void LoadServersTable(string path)
+        public void LoadServersTable()
         {
-            csvServersAux = info.GetDataTableFromScV(path);
+            csvServersAux = info.GetDataTableFromScV(info.PathServers1);
         }
-
 
         public void LoadServicesTable(string path)
         {
@@ -390,10 +383,21 @@ namespace ServiceQuery
 
         public void SetServicesTyp()
         {
-            ServicesList = new List<string>();
-
-            ServicesList = ServicesListAux.Distinct().ToList();     
+            ServicesListTyp = new List<string>();
+            ServicesListTyp = ServicesListTypAux.Distinct().ToList();     
         }
+
+        public void SetServersTyp()
+        {
+            LoadServersTable();
+            ServersListTypAux = new List<string>();
+            for (int i = 0; i < csvServersAux.Rows.Count; i++)
+            {
+                ServersListTypAux.Add(csvServersAux.Rows[i]["ServerTyp"].ToString());
+            }
+            ServersListTyp = ServersListTypAux.Distinct().ToList();
+        }
+
         #endregion
 
     }

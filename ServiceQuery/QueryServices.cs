@@ -19,10 +19,13 @@ namespace ServiceQuery
         private string place1, place2;
         private DataTable csvServer;
         private DataTable csvService;
+        private DataTable csvServersAux;
+        private DataTable csvServicesAux;
         private ManagementObject manager;
         private ManagementScope conection;
         private bool estado;
-
+        private List<string> ServicesList;
+        private List<string> ServicesListAux;
 
         public QueryServices()
         {
@@ -30,6 +33,9 @@ namespace ServiceQuery
             place1 = info.Place1;
             place2 = info.Place2;
             estado = info.CheckBoxDefaultValue;
+            LoadServersTable(info.PathServers1);
+            LoadServicesTable(info.PathServices1);
+            
         }
 
         #region Set ComboBox
@@ -44,30 +50,38 @@ namespace ServiceQuery
          * */
         public void SetComboBoxServer(string selectedServer)
         {
-            this.selectedServer = selectedServer;
-            //
-            //se evalua si el parametro coindice con el tipo de servidor 1
-            if (selectedServer == info.ServerTyp1) 
+            
+            csvServer = new DataTable();
+            csvService = new DataTable();
+
+            ServicesListAux = new List<string>();
+
+            csvServer.Columns.Add("ServerTyp", typeof(string));
+            csvServer.Columns.Add("ServerName", typeof(string));
+            csvServer.Columns.Add("PlaceName", typeof(string));
+
+            csvService.Columns.Add("ServerTyp", typeof(string));
+            csvService.Columns.Add("ServiceName", typeof(string));
+            csvService.Columns.Add("ServiceTyp", typeof(string));
+
+            for (int i = 0; i < csvServersAux.Rows.Count; i++)
             {
-                SetComboServer(info.PathServers1);
-                SetComboService(info.PathServices1);
+                if(csvServersAux.Rows[i]["ServerTyp"].ToString().Equals(selectedServer))
+                {
+                    csvServer.ImportRow(csvServersAux.Rows[i]);
+                }              
             }
-            else if (selectedServer == info.ServerTyp2)
+            for (int j = 0; j < csvServicesAux.Rows.Count; j++)
             {
-                SetComboServer(info.PathServers2);
-                SetComboService(info.PathServices2);
+                if (csvServicesAux.Rows[j]["ServerTyp"].ToString().Equals(selectedServer))
+                {
+                    csvService.ImportRow(csvServicesAux.Rows[j]);
+                    ServicesListAux.Add(csvServicesAux.Rows[j]["ServiceTyp"].ToString());
+                }
             }
-            //
-            //si se selecciona All, la primera tabla sera agregada como parametro a la segunda tabla
-            else
-            {
-                DataTable scv2 = info.GetDataTableFromScV(info.PathServers1);
-                DataTable csvServ2 = info.GetDataTableFromScV(info.PathServices1);
-                SetComboServer(info.PathServers2);
-                SetComboService(info.PathServices2);
-                csvServer.Merge(scv2);
-                csvService.Merge(csvServ2);
-            } 
+
+            SetServicesTyp();
+
             this.NotifyObs();
         }
 
@@ -155,10 +169,18 @@ namespace ServiceQuery
             }
         }
 
+        public List<string> GetServicesTyp
+        {
+            get
+            {
+                return ServicesList;
+            }
+        }
+
         #endregion Geters
 
 
-
+        #region Querys
         public String PingToServer(string server)
         {
             Ping ping = new Ping();
@@ -346,9 +368,33 @@ namespace ServiceQuery
                 }
            
         }
+        #endregion
 
- 
+        #region Load Csv
 
-              
+
+        /**
+         * Metodo encargado de guardar la informacion correspondiente 
+         * a los nombres de los servidores en una variable de tipo Table
+         * */
+        public void LoadServersTable(string path)
+        {
+            csvServersAux = info.GetDataTableFromScV(path);
+        }
+
+
+        public void LoadServicesTable(string path)
+        {
+            csvServicesAux = info.GetDataTableFromScV(path);
+        }
+
+        public void SetServicesTyp()
+        {
+            ServicesList = new List<string>();
+
+            ServicesList = ServicesListAux.Distinct().ToList();     
+        }
+        #endregion
+
     }
 }

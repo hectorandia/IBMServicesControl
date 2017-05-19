@@ -40,10 +40,8 @@ namespace IBMServicesControl
             selectServerTypComBox.Items.Add(query.ServerTyp1());
             selectServerTypComBox.Items.Add(query.ServerTyp2());
             selectServiceComBox.SelectedItem = 0;            
-            selectServerTypComBox.SelectedIndex = 0;
+            //selectServerTypComBox.SelectedIndex = 0;
             cancelBtn.Enabled = false;
-      
-
         }
 
         public void UpdateElement()
@@ -110,22 +108,11 @@ namespace IBMServicesControl
         {
             selectServiceComBox.Items.Clear();
             selectServiceComBox.Items.Add(selectAll);
-            selectServiceComBox.SelectedIndex = 0;
-                     
-            string last = "";
+            selectServiceComBox.SelectedIndex = 0;                  
 
-            for (int i = 0; i < query.CsvService.Rows.Count; i++)
+            foreach(string typ in query.GetServicesTyp)
             {
-                //se compara la similitud con el elemento anterior
-                if (query.CsvService.Rows[i]["serviceTyp"].ToString() != last)
-                {
-                    //si no son iguales se agrega el registro
-                    selectServiceComBox.Items.Add(query.CsvService.Rows[i]["serviceTyp"]); 
-                }
-                else
-                { }
-                //se guarda el valor del ultimo registro analizado
-                last = query.CsvService.Rows[i]["serviceTyp"].ToString();           
+                selectServiceComBox.Items.Add(typ);
             }
         }
 

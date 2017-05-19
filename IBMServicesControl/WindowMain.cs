@@ -42,6 +42,10 @@ namespace IBMServicesControl
             selectServerTypComBox.SelectedIndex = 0;
             cancelBtn.Enabled = false;
         }
+        public void MetodoBasura()
+        {
+
+        }
 
         public void UpdateElement()
         {

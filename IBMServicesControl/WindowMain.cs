@@ -336,7 +336,6 @@ namespace IBMServicesControl
             {
                 string server = query.CsvServer.Rows[index]["ServerName"].ToString();
 
-
                 ServiceController sc = query.GetServiceQuery(sl, server);
                 try
                 {
@@ -352,12 +351,11 @@ namespace IBMServicesControl
                     };
 
                     SetDataSource(Info);
-                    CellColorDataGridView();
-                                    
+                    CellColorDataGridView();                                 
                 }
                 catch (ThreadAbortException ex)
                 {
-                    if (MessageBox.Show("Möchten Sie die Ausgabe ausführen ?", "Services Control", MessageBoxButtons.OK) == DialogResult.OK)
+                    if (MessageBox.Show("Die Abfrage der Diente wurde abgebrochen", "Services Control", MessageBoxButtons.OK) == DialogResult.OK)
                     {
                         indexServicesProgressBar = 0;
                         break;
@@ -493,9 +491,7 @@ namespace IBMServicesControl
                     {
                         indexServerProgressBar = query.CsvServer.Rows.Count;
                         LoadedDataGridView(selectListServices, i);
-                    }
-
-                    
+                    }                
                 }
                 catch (Exception ex)
                 {
@@ -514,6 +510,5 @@ namespace IBMServicesControl
             Application.Exit();
             Environment.Exit(0);
         }
-
     }
 }

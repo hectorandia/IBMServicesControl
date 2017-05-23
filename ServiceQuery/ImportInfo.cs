@@ -14,17 +14,10 @@ namespace ServiceQuery
         //variable donde se guarda el archivo csv en formato de tabla
         private DataTable csvData;
 
-        private string serverTyp1;
-        private string serverTyp2;
 
         private string pathServers1;
-        private string pathServers2;
 
         private string pathServices1;
-        private string pathServices2;
-
-        private string place1;
-        private string place2;
 
         private bool checkBoxDefaultValue;
 
@@ -82,20 +75,13 @@ namespace ServiceQuery
         {
             try
             {
-                serverTyp1 = ConfigurationManager.AppSettings["ServerTyp1"];
-                serverTyp2 = ConfigurationManager.AppSettings["ServerTyp2"];
-
-                place1 = ConfigurationManager.AppSettings["place1"];
-                place2 = ConfigurationManager.AppSettings["place2"];
 
                 //
                 //Variables de tipo string, donde se guarda la hubicacion de cada archivo 
                 //csv especificada en el archivo App.config
                 //
                 pathServers1 = ConfigurationManager.AppSettings["pathServers1"];
-                pathServers2 = ConfigurationManager.AppSettings["pathServers2"];
                 pathServices1 = ConfigurationManager.AppSettings["pathServices1"];
-                pathServices2 = ConfigurationManager.AppSettings["pathServices2"];
             }
             catch(Exception ex)
             {
@@ -103,25 +89,6 @@ namespace ServiceQuery
             }
         }
 
-        //
-        //metodo get para las variables de tipos string donde se almacena
-        //el tipo de servidor
-        //
-        public string ServerTyp1
-        {
-            get
-            {
-                return serverTyp1;
-            }
-        }
-
-        public string ServerTyp2
-        {
-            get
-            {
-                return serverTyp2;
-            }
-        }
 
 
         //
@@ -135,13 +102,7 @@ namespace ServiceQuery
                 return pathServers1; //Retorna una lista con los nombres de los servicios
             }
         }
-        public string PathServers2
-        {
-            get
-            {
-                return pathServers2; //Retorna una lista con los nombres de los servicios
-            }
-        }
+
         public string PathServices1
         {
             get
@@ -149,29 +110,7 @@ namespace ServiceQuery
                 return pathServices1; //Retorna una lista con los nombres de los servicios
             }
         }
-        public string PathServices2
-        {
-            get
-            {
-                return pathServices2; //Retorna una lista con los nombres de los servicios
-            }
-        }
 
-        public string Place1
-        {
-            get
-            {
-                return place1;
-            }
-        }
-
-        public string Place2
-        {
-            get
-            {
-                return place2;
-            }
-        }
 
         public bool CheckBoxDefaultValue
         {

@@ -32,8 +32,6 @@ namespace ServiceQuery
         public QueryServices()
         {
             info = new ImportInfo();
-            place1 = info.Place1;
-            place2 = info.Place2;
             estado = info.CheckBoxDefaultValue;
             LoadServersTable();
             LoadServicesTable(info.PathServices1);
@@ -137,15 +135,6 @@ namespace ServiceQuery
             }
         }
 
-        public string ServerTyp1()
-        { 
-            return info.ServerTyp1;
-        }
-
-        public string ServerTyp2()
-        {
-            return info.ServerTyp2;
-        }
 
         public bool Estado
         {

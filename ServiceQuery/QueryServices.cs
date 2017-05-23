@@ -242,7 +242,7 @@ namespace ServiceQuery
             try
             {
                 //determina el tiempo de espera para status
-                TimeSpan timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
+                //TimeSpan timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
 
                 if (sc != null && sc.Status == ServiceControllerStatus.Running)
                 {
@@ -263,7 +263,7 @@ namespace ServiceQuery
             ServiceController sc = new ServiceController(nameService, nameServer);           
             try
             {
-                TimeSpan timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
+                //TimeSpan timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
 
                 if (sc != null && sc.Status == ServiceControllerStatus.Stopped)
                 {
@@ -293,12 +293,12 @@ namespace ServiceQuery
                     sc.Stop();
                     sc.WaitForStatus(ServiceControllerStatus.Stopped, timeout);
                     sc.Start();
-                    sc.WaitForStatus(ServiceControllerStatus.Running, timeout);
+                    //sc.WaitForStatus(ServiceControllerStatus.Running, timeout);
                 }
                 else if (sc != null && sc.Status == ServiceControllerStatus.Stopped)
                 { }
 
-                sc.Close();
+                //sc.Close();
             }
             catch (Exception ex)
             {

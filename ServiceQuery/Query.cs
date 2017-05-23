@@ -10,7 +10,7 @@ namespace ServiceQuery
     abstract public class Query : IQuery
     {
         protected List<IMainObserver> observers = new List<IMainObserver>();
-        protected static int timeoutMilliseconds = 2000;
+        protected static int timeoutMilliseconds = 4000;
 
         public void RegisterObs(IMainObserver observer)
         {

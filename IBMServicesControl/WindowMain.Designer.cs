@@ -35,7 +35,6 @@
             this.panelBottom = new MetroFramework.Controls.MetroPanel();
             this.DisableBtn = new MetroFramework.Controls.MetroButton();
             this.EnableBtn = new MetroFramework.Controls.MetroButton();
-            this.restartBtn = new MetroFramework.Controls.MetroButton();
             this.stopBtn = new MetroFramework.Controls.MetroButton();
             this.startBtn = new MetroFramework.Controls.MetroButton();
             this.dataGridView1 = new MetroFramework.Controls.MetroGrid();
@@ -46,6 +45,7 @@
             this.startType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.state = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelTop = new MetroFramework.Controls.MetroPanel();
+            this.cancelBtn = new MetroFramework.Controls.MetroButton();
             this.searchBtn = new MetroFramework.Controls.MetroButton();
             this.label1 = new MetroFramework.Controls.MetroLabel();
             this.pinTextBox = new MetroFramework.Controls.MetroTextBox();
@@ -57,7 +57,6 @@
             this.selectServerComBox = new MetroFramework.Controls.MetroComboBox();
             this.selectServerLabel = new MetroFramework.Controls.MetroLabel();
             this.progressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.cancelBtn = new MetroFramework.Controls.MetroButton();
             this.panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelTop.SuspendLayout();
@@ -69,7 +68,6 @@
             this.panelBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelBottom.Controls.Add(this.DisableBtn);
             this.panelBottom.Controls.Add(this.EnableBtn);
-            this.panelBottom.Controls.Add(this.restartBtn);
             this.panelBottom.Controls.Add(this.stopBtn);
             this.panelBottom.Controls.Add(this.startBtn);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -109,16 +107,6 @@
             this.EnableBtn.Text = "Enable";
             this.EnableBtn.UseSelectable = true;
             this.EnableBtn.Click += new System.EventHandler(this.EnableBtn_Click);
-            // 
-            // restartBtn
-            // 
-            this.restartBtn.Location = new System.Drawing.Point(324, 28);
-            this.restartBtn.Name = "restartBtn";
-            this.restartBtn.Size = new System.Drawing.Size(75, 25);
-            this.restartBtn.TabIndex = 2;
-            this.restartBtn.Text = "Restart";
-            this.restartBtn.UseSelectable = true;
-            this.restartBtn.Click += new System.EventHandler(this.restartBtn_Click);
             // 
             // stopBtn
             // 
@@ -269,6 +257,16 @@
             this.panelTop.VerticalScrollbarHighlightOnWheel = false;
             this.panelTop.VerticalScrollbarSize = 10;
             // 
+            // cancelBtn
+            // 
+            this.cancelBtn.Location = new System.Drawing.Point(568, 115);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(85, 25);
+            this.cancelBtn.TabIndex = 12;
+            this.cancelBtn.Text = "Cancel";
+            this.cancelBtn.UseSelectable = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
             // searchBtn
             // 
             this.searchBtn.Location = new System.Drawing.Point(455, 115);
@@ -405,16 +403,6 @@
             this.progressBar.TabIndex = 4;
             this.progressBar.Visible = false;
             // 
-            // cancelBtn
-            // 
-            this.cancelBtn.Location = new System.Drawing.Point(568, 115);
-            this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(85, 25);
-            this.cancelBtn.TabIndex = 12;
-            this.cancelBtn.Text = "Cancel";
-            this.cancelBtn.UseSelectable = true;
-            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
-            // 
             // WindowMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -448,7 +436,6 @@
         //private System.Windows.Forms.Button startBtn;
         private MetroFramework.Controls.MetroPanel panelBottom;
         private MetroFramework.Controls.MetroButton stopBtn;
-        private MetroFramework.Controls.MetroButton restartBtn;
         private MetroFramework.Controls.MetroButton startBtn;
         //private System.Windows.Forms.Label selectServerLabel;
         private MetroFramework.Controls.MetroLabel selectServerLabel;

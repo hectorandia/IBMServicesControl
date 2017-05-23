@@ -275,7 +275,7 @@ namespace IBMServicesControl
             searchBtn.Enabled = false;
             stopBtn.Enabled = false;
             startBtn.Enabled = false;
-            restartBtn.Enabled = false;
+            //restartBtn.Enabled = false;
             EnableBtn.Enabled = false;
             DisableBtn.Enabled = false;
         }
@@ -286,7 +286,7 @@ namespace IBMServicesControl
             searchBtn.Enabled = true;
             stopBtn.Enabled = true;
             startBtn.Enabled = true;
-            restartBtn.Enabled = true;
+            //restartBtn.Enabled = true;
             EnableBtn.Enabled = true;
             DisableBtn.Enabled = true;
         }

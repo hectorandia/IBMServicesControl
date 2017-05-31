@@ -229,7 +229,7 @@ namespace IBMServicesControl
          * */
         private void HandlingServiceButton(string task)
         {
-            DialogResult result = MessageBox.Show("Die Dienste werden ihre Startype als " + task + " ändern . Möchten Sie die Ausgabe ausführen?", "Dienste " + task, MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("The service will be set to start type " + task + " Are you sure? ", "Service " + task, MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 try
@@ -249,7 +249,7 @@ namespace IBMServicesControl
                     }
                     else
                     {
-                        result = MessageBox.Show("Möchten Sie die Dienste Starten?", "Dienste " + task, MessageBoxButtons.YesNo);
+                        result = MessageBox.Show("Do you want to start the service?", "Service " + task, MessageBoxButtons.YesNo);
                         if(result == DialogResult.Yes)
                         {
                             StartStopBtnTask(0);

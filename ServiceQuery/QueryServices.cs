@@ -172,16 +172,16 @@ namespace ServiceQuery
             {
                 if (ping.Send(server, timeout).Status == IPStatus.Success)
                 {
-                    return "The Server " + server + " Responded Successfully ";
+                    return "The server " + server + " responded successfully ";
                 }
                 else
                 {
-                    return "Server " + server + " Not Responding";
+                    return "Server " + server + " does not responding";
                 }
             }
             catch(Exception ex)
             {
-                return "Server " + server + " Not Found, " + ex.Message;
+                return "Server " + server + " was not Found, " + ex.Message;
             }
         }
 

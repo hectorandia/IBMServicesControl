@@ -266,6 +266,10 @@ namespace IBMServicesControl
                     MessageBox.Show(ex.Message);
                 }
             }
+            else
+            {
+                StartThreadGridView();
+            }
 
         }
 

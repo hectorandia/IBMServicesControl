@@ -11,7 +11,7 @@ using ServiceQuery;
 using System.ServiceProcess;
 using System.Management;
 using MetroFramework;
-
+using System.IO;
 
 
 namespace IBMServicesControl
@@ -513,6 +513,33 @@ namespace IBMServicesControl
             Application.ExitThread();
             Application.Exit();
             Environment.Exit(0);
+        }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            var sb = new StringBuilder();
+
+            var headers = dataGridView1.Columns.Cast<DataGridViewColumn>();
+            sb.AppendLine(string.Join(";", headers.Select(column => "\"" + column.HeaderText + "\"").ToArray()));
+
+            foreach(DataGridViewRow row in dataGridView1.Rows)
+            {
+                var cells = row.Cells.Cast<DataGridViewCell>();
+                sb.AppendLine(string.Join(";", cells.Select(cell => "\"" + cell.Value + "\"").ToArray()));
+
+            }
+            saveFileDialog1.Filter = "CSV File|*.csv|Text File|*.txt";
+            if(saveFileDialog1.ShowDialog() ==DialogResult.OK && saveFileDialog1.FileName != "")
+            {
+                try
+                {
+                    File.WriteAllText(saveFileDialog1.FileName, sb.ToString());
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

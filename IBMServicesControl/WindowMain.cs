@@ -41,6 +41,10 @@ namespace IBMServicesControl
             selectServiceComBox.SelectedItem = 0;            
             selectServerTypComBox.SelectedIndex = 0;
             cancelBtn.Enabled = false;
+            startBtn.Enabled = false;
+            stopBtn.Enabled = false;
+            EnableBtn.Enabled = false;
+            DisableBtn.Enabled = false;
         }
         public void MetodoBasura()
         {
@@ -282,6 +286,7 @@ namespace IBMServicesControl
             //restartBtn.Enabled = false;
             EnableBtn.Enabled = false;
             DisableBtn.Enabled = false;
+            saveBtn.Enabled = false;
         }
 
         private void EnableAllButton()
@@ -293,6 +298,7 @@ namespace IBMServicesControl
             //restartBtn.Enabled = true;
             EnableBtn.Enabled = true;
             DisableBtn.Enabled = true;
+            saveBtn.Enabled = true;
         }
 
         #endregion Buttons Functions
@@ -540,6 +546,24 @@ namespace IBMServicesControl
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        #region ToolStripMenu
+        private void aboutServicesControlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 about = new AboutBox1();
+            about.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WindowMain_FormClosed(sender, null);
+        }
+        #endregion
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveBtn_Click(sender, null);
         }
     }
 }
